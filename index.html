@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پنل V2Ray - نسخه خریداری شده</title>
+    <title>پنل V2Ray - نسخه کامپکت</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -17,7 +17,7 @@
             --gray: #6c757d;
             --light: #f8f9fa;
             --premium: linear-gradient(45deg, #f093fb, #f5576c);
-            --all-btn-gradient: linear-gradient(135deg, #4361ee, #06d6a0);
+            --copy-all: linear-gradient(135deg, #4361ee, #06d6a0);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,6 +107,7 @@
             height: 100%;
             background: var(--success);
             border-radius: 3px;
+            width: 0%;
         }
 
         .actions-row {
@@ -205,29 +206,28 @@
             background: #3654d1;
         }
 
-        .all-configs-btn {
-            padding: 12px 20px;
-            background: var(--all-btn-gradient);
+        .copy-all-manual-btn {
+            padding: 12px 30px;
+            background: var(--copy-all);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            justify-content: center;
-            width: 100%;
-            max-width: 500px;
-            margin: 15px auto 20px auto;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s;
         }
 
-        .all-configs-btn:hover {
+        .copy-all-manual-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .copy-all-manual-btn i {
+            margin-left: 8px;
         }
 
         footer {
@@ -247,9 +247,146 @@
     </style>
 </head>
 <body>
+
+    <script>
+        const baseConfigs = [
+            "vless://2fb8808b-b94c-42ea-9dd2-cd77d2efcc8d@www.perplexity.ai:2096?path=%2FeyJqdW5rIjoidDZLaDRBMWhpIiwicHJvdG9jb2wiOiJ2bCIsIm1vZGUiOiJwcm94eXlwIiwicGFuZWxJUHMiOltdfQ%3D%3D%3Fed%3D2560&security=tls&alpn=http%2F1.1&encryption=none&host=digikalaa.dpdns.org&fp=chrome&type=ws&sni=DiGIkALaA.dpdns.ORG",
+            "vless://9be5679d-cd82-4ace-9fcf-bed31e21fadf@www.perplexity.ai:443?path=%2F43.218.77.16%3D1443&security=tls&encryption=none&host=tronblue.qzz.io&type=ws&sni=tronblue.qzz.io",
+            "vless://e23d87e4-77cd-430f-8769-9508880368c1@www.perplexity.ai:443?path=%2Freg%2Fabout%2Fproxyip%3Dkr.william.us.ci%3Fed%3D2560&security=tls&encryption=none&host=qmsdingyue.1949-10-01.top&type=ws&sni=qmsdingyue.1949-10-01.top",
+            "vless://f14daeff-923f-4ee9-f6ce-bcf0bf4d1d63@www.perplexity.ai:2096?path=%2F&security=tls&encryption=none&host=meiguo2.shuiwudengli.dpdns.org&type=ws&sni=meiguo2.shuiwudengli.dpdns.org",
+            "vless://c5b129d7-f133-4b34-a9c6-68c9a8f70248@www.perplexity.ai:80?path=%2F&security=none&encryption=none&host=EMotioNaL-peRMIsSiONf1bs65u5f4.EcOTOuRISs.Co.uK&type=ws",
+            "vless://876d731a-4615-4a26-a751-d303e12458b0@www.perplexity.ai:443?path=%2F77d76f3d-5da8-4198-b5d2-9634d3059ad0&security=tls&alpn=h2&encryption=none&host=menu.gejeh683bm.ir&fp=chrome&type=ws&sni=menu.gejeh683bm.ir",
+            "vless://1cf0ad1e-060b-42f9-b57d-eb0fe8ffbbe8@www.perplexity.ai:2096?path=%2F&security=tls&encryption=none&host=yinguo.shuiwudengli.dpdns.org&type=ws&sni=yinguo.shuiwudengli.dpdns.org",
+            "vless://00000000-0000-0000-0000-000000000000@127.0.0.1:0?security=none&encryption=none&type=none"
+        ];
+
+        const countryEmojis = [
+            "🇩🇪", // آلمان
+            "🇮🇩", // اندونزی
+            "🇰🇷", // کره جنوبی
+            "🇺🇸", // آمریکا
+            "🇨🇦", // کانادا
+            "🇫🇮", // فینلند
+            "🇬🇧"  // بریتانیا
+        ];
+
+        const START_TIME = Date.parse('2025-12-28T22:15:00Z');
+        const PERIOD_MS = 30 * 24 * 60 * 60 * 1000;
+        const MAX_VOLUME_GB = 100000;
+
+        const pattern = [
+            0.0438, 0.0588, 0.0521, 0.0412, 0.0590, 0.0465, 0.0553, 0.0409,
+            0.0577, 0.0441, 0.0500, 0.0592, 0.0423, 0.0566, 0.0489, 0.0415,
+            0.0544, 0.0599, 0.0430, 0.0518, 0.0456, 0.0581, 0.0400, 0.0535,
+            0.0572, 0.0469, 0.0427, 0.0558, 0.0493, 0.0418, 0.0595, 0.0444,
+            0.0529, 0.0405, 0.0561, 0.0482, 0.0433, 0.0584, 0.0510, 0.0459,
+            0.0547, 0.0420, 0.0597, 0.0471, 0.0505, 0.0413, 0.0570, 0.0538,
+            0.0462, 0.0402, 0.0555, 0.0488, 0.0425, 0.0593, 0.0447, 0.0514,
+            0.0569, 0.0436, 0.0586, 0.0590
+        ];
+
+        const patternSumPerMinuteGB = pattern.reduce((a, b) => a + b, 0);
+
+        function calculateUsage() {
+            const now = Date.now();
+            let elapsedMs = now - START_TIME;
+            if (elapsedMs < 0) elapsedMs = 0;
+            if (elapsedMs > PERIOD_MS) elapsedMs = PERIOD_MS;
+
+            const elapsedSeconds = Math.floor(elapsedMs / 1000);
+            const fullMinutes = Math.floor(elapsedSeconds / 60);
+            const secondsInMinute = elapsedSeconds % 60;
+
+            let totalConsumedGB = fullMinutes * patternSumPerMinuteGB;
+            for (let i = 0; i < secondsInMinute; i++) {
+                totalConsumedGB += pattern[i];
+            }
+
+            totalConsumedGB = Math.min(totalConsumedGB, MAX_VOLUME_GB);
+
+            const consumedGB = totalConsumedGB.toFixed(4);
+            const remainingGB = (MAX_VOLUME_GB - totalConsumedGB).toFixed(4);
+
+            const timeLeftMs = PERIOD_MS - elapsedMs;
+            const days = Math.max(0, Math.floor(timeLeftMs / 86400000));
+            const hours = Math.floor((timeLeftMs % 86400000) / 3600000);
+            const minutes = Math.floor((timeLeftMs % 3600000) / 60000);
+            const seconds = Math.floor((timeLeftMs % 60000) / 1000);
+
+            return { remainingGB, consumedGB, days, hours, minutes, seconds, totalConsumedGB };
+        }
+
+        function copyConfig(index) {
+            const { remainingGB, consumedGB, days } = calculateUsage();
+            let config = baseConfigs[index];
+
+            if (index === 7) {
+                // فقط کانفیگ اطلاعات اشتراک: حجم و زمان
+                config += `#حجم مصرفی: ${consumedGB} GB | باقی‌مانده: ${remainingGB} GB | زمان باقی‌مانده: ${days} روز`;
+            } else {
+                // همه سرورهای VIP: فقط VIP SERVER + ایموجی کشور
+                const remark = `VIP SERVER ${countryEmojis[index]}`;
+                config += '#' + encodeURIComponent(remark);
+            }
+
+            navigator.clipboard.writeText(config).then(() => {
+                alert(`کانفیگ کپی شد!`);
+            }).catch(() => {
+                prompt('کپی نشد، لطفاً دستی کپی کنید:', config);
+            });
+        }
+
+        function copyAllManual() {
+            const { remainingGB, consumedGB, days } = calculateUsage();
+            let allConfigs = '';
+            for (let i = 0; i < 8; i++) {
+                let config = baseConfigs[i];
+                if (i === 7) {
+                    config += `#حجم مصرفی: ${consumedGB} GB | باقی‌مانده: ${remainingGB} GB | زمان باقی‌مانده: ${days} روز`;
+                } else {
+                    const remark = `VIP SERVER ${countryEmojis[i]}`;
+                    config += '#' + encodeURIComponent(remark);
+                }
+                allConfigs += config + '\n';
+            }
+            navigator.clipboard.writeText(allConfigs.trim()).then(() => {
+                alert('همه کانفیگ‌های پنل با موفقیت کپی شدند!');
+            }).catch(() => {
+                prompt('کپی همه نشد، لطفاً دستی کپی کنید:', allConfigs.trim());
+            });
+        }
+
+        function updateDisplay() {
+            const data = calculateUsage();
+
+            document.getElementById('volume-remaining').textContent = `${data.remainingGB} GB`;
+            document.getElementById('volume-consumed-text').textContent = `مصرف شده: ${data.consumedGB} GB`;
+            document.getElementById('time-remaining').textContent = `${data.days} روز`;
+            document.getElementById('time-detail').textContent = `${data.days} روز، ${data.hours} ساعت، ${data.minutes} دقیقه، ${data.seconds} ثانیه`;
+            document.getElementById('volume-progress').style.width = `${(data.totalConsumedGB / MAX_VOLUME_GB) * 100}%`;
+        }
+
+        function openSupport() { window.open('https://t.me/Leviko_pubg', '_blank'); }
+
+        function addToApp() { alert('از دکمه‌های «کپی کانفیگ» کنار هر سرور استفاده کنید!'); }
+
+        function showFAQ() {
+            alert(`سوالات متداول:\n\n۱. چطور کانفیگ رو اضافه کنم؟\n- دکمه "کپی کانفیگ" رو بزنید و لینک رو در برنامه V2RayNG، Hiddify، Nekobox یا مشابه کپی کنید.\n\n۲. حجم یا زمان تموم شد چیکار کنم؟\n- با پشتیبانی تماس بگیرید تا اشتراک تمدید شود.\n\n۳. چرا سرعت کمه؟\n- سرورهای مختلف رو تست کنید. سرورهای نزدیک‌تر معمولاً سریع‌ترن.\n\n۴. کانفیگ کار نمی‌کنه؟\n- مطمئن شوید از آخرین نسخه برنامه استفاده می‌کنید و فیلترشکن خاموشه.\n\n۵. چطور حجم باقی‌مونده رو ببینم؟\n- همین پنل رو باز کنید، اطلاعات به‌روز نمایش داده می‌شه.`);
+        }
+
+        function showTutorial() {
+            alert(`آموزش استفاده از پنل V2Ray:\n\n۱. روی دکمه "کپی کانفیگ" کنار سرور مورد نظر کلیک کنید.\n۲. لینک کپی‌شده رو در برنامه خود (مثل V2RayNG، Hiddify، Nekobox) اضافه کنید.\n۳. اتصال رو برقرار کنید و از اینترنت پرسرعت لذت ببرید!\n\nنکته: هر سرور ویژگی‌های متفاوتی داره (پینگ، بار، کشور). بهترین رو بر اساس نیازتون انتخاب کنید.\n\nدر صورت مشکل با پشتیبانی در تماس باشید.`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDisplay();
+            setInterval(updateDisplay, 1000);
+        });
+    </script>
+
     <div class="container">
         <header>
-            <h1>پنل V2Ray - نسخه خریداری شده</h1>
+            <h1>پنل V2Ray - نسخه کامپکت</h1>
             <p>مدیریت سریع اشتراک و سرورها</p>
         </header>
 
@@ -257,15 +394,15 @@
             <div class="compact-grid">
                 <div class="card">
                     <h3>حجم باقی‌مانده</h3>
-                    <div class="value" id="volume-remaining">در حال بارگذاری...</div>
+                    <div class="value" id="volume-remaining">100000.0000 GB</div>
                     <div class="progress-bar"><div class="progress" id="volume-progress"></div></div>
-                    <div class="subtext" id="volume-consumed-text">مصرف شده: در حال بارگذاری...</div>
+                    <div class="subtext" id="volume-consumed-text">مصرف شده: 0.0000 GB</div>
                 </div>
 
                 <div class="card">
                     <h3>زمان باقی‌مانده اشتراک</h3>
-                    <div class="value" id="time-remaining">در حال بارگذاری...</div>
-                    <div class="subtext" id="time-detail">در حال بارگذاری...</div>
+                    <div class="value" id="time-remaining">28 روز</div>
+                    <div class="subtext" id="time-detail">28 روز، 22 ساعت، 15 دقیقه، 0 ثانیه</div>
                 </div>
 
                 <div class="card">
@@ -297,120 +434,31 @@
                 <button class="btn-premium" onclick="showTutorial()">
                     <i class="fas fa-book-open"></i> آموزش استفاده از پنل
                 </button>
-
-                <button class="btn-success btn-small" onclick="copySubLink()">
-                    <i class="fas fa-copy"></i> کپی لینک اشتراک (ساب)
-                </button>
             </div>
 
             <div class="compact-grid">
                 <div class="card servers-card">
                     <h3>لیست سرورها</h3>
 
-                    <button class="all-configs-btn" onclick="copyAllConfigs()">
-                        <i class="fas fa-copy"></i> کپی همه کانفیگ‌ها (دستی)
+                    <button class="copy-all-manual-btn" onclick="copyAllManual()">
+                        <i class="fas fa-copy"></i> کپی کانفیگ‌ها به صورت دستی
                     </button>
 
                     <table>
                         <thead>
                             <tr>
-                                <th>نام</th>
-                                <th>کشور</th>
-                                <th>پینگ</th>
-                                <th>بار</th>
-                                <th>وضعیت</th>
-                                <th>عملیات</th>
+                                <th>نام</th><th>کشور</th><th>پینگ</th><th>بار</th><th>وضعیت</th><th>عملیات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>آلمان VIP</td>
-                                <td><img src="https://flagcdn.com/de.svg" class="flag" alt="DE"> آلمان</td>
-                                <td>32 ms</td>
-                                <td>28%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(0)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>اندونزی VIP</td>
-                                <td><img src="https://flagcdn.com/id.svg" class="flag" alt="ID"> اندونزی</td>
-                                <td>110 ms</td>
-                                <td>35%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(1)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>کره جنوبی VIP</td>
-                                <td><img src="https://flagcdn.com/kr.svg" class="flag" alt="KR"> کره جنوبی</td>
-                                <td>95 ms</td>
-                                <td>22%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(2)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>آمریکا VIP</td>
-                                <td><img src="https://flagcdn.com/us.svg" class="flag" alt="US"> آمریکا</td>
-                                <td>145 ms</td>
-                                <td>45%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(3)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>کانادا VIP</td>
-                                <td><img src="https://flagcdn.com/ca.svg" class="flag" alt="CA"> کانادا</td>
-                                <td>120 ms</td>
-                                <td>30%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(4)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>فینلند VIP</td>
-                                <td><img src="https://flagcdn.com/fi.svg" class="flag" alt="FI"> فینلند</td>
-                                <td>45 ms</td>
-                                <td>18%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(5)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>بریتانیا VIP</td>
-                                <td><img src="https://flagcdn.com/gb.svg" class="flag" alt="GB"> بریتانیا</td>
-                                <td>40 ms</td>
-                                <td>25%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(6)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>برزیل VIP</td>
-                                <td><img src="https://flagcdn.com/br.svg" class="flag" alt="BR"> برزیل</td>
-                                <td>98 ms</td>
-                                <td>25%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(7)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>سوییس VIP</td>
-                                <td><img src="https://flagcdn.com/ch.svg" class="flag" alt="CH"> سوییس</td>
-                                <td>87 ms</td>
-                                <td>25%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(8)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>هلند VIP</td>
-                                <td><img src="https://flagcdn.com/nl.svg" class="flag" alt="NL"> هلند</td>
-                                <td>40 ms</td>
-                                <td>25%</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(9)">کپی کانفیگ</button></td>
-                            </tr>
-                            <tr>
-                                <td>اطلاعات اشتراک</td>
-                                <td><img src="https://flagcdn.com/info.svg" class="flag" alt="Info"> اطلاعات</td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td><span class="status-active">فعال</span></td>
-                                <td><button class="copy-btn" onclick="copyConfig(10)">کپی اطلاعات</button></td>
-                            </tr>
+                            <tr><td>آلمان VIP</td><td><img src="https://flagcdn.com/de.svg" class="flag" alt="DE"> آلمان</td><td>32 ms</td><td>28%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(0)">کپی کانفیگ</button></td></tr>
+                            <tr><td>اندونزی VIP</td><td><img src="https://flagcdn.com/id.svg" class="flag" alt="ID"> اندونزی</td><td>110 ms</td><td>35%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(1)">کپی کانفیگ</button></td></tr>
+                            <tr><td>کره جنوبی VIP</td><td><img src="https://flagcdn.com/kr.svg" class="flag" alt="KR"> کره جنوبی</td><td>95 ms</td><td>22%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(2)">کپی کانفیگ</button></td></tr>
+                            <tr><td>آمریکا VIP</td><td><img src="https://flagcdn.com/us.svg" class="flag" alt="US"> آمریکا</td><td>145 ms</td><td>45%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(3)">کپی کانفیگ</button></td></tr>
+                            <tr><td>کانادا VIP</td><td><img src="https://flagcdn.com/ca.svg" class="flag" alt="CA"> کانادا</td><td>120 ms</td><td>30%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(4)">کپی کانفیگ</button></td></tr>
+                            <tr><td>فینلند VIP</td><td><img src="https://flagcdn.com/fi.svg" class="flag" alt="FI"> فینلند</td><td>45 ms</td><td>18%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(5)">کپی کانفیگ</button></td></tr>
+                            <tr><td>بریتانیا VIP</td><td><img src="https://flagcdn.com/gb.svg" class="flag" alt="GB"> بریتانیا</td><td>40 ms</td><td>25%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(6)">کپی کانفیگ</button></td></tr>
+                            <tr><td>اطلاعات اشتراک</td><td><img src="https://flagcdn.com/wl/info.svg" class="flag" alt="Info"> اطلاعات</td><td>-</td><td>-</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(7)">کپی اطلاعات</button></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -421,232 +469,5 @@
             <p>&copy; ۱۴۰۴ - پنل V2Ray کامپکت | پشتیبانی: support@panel.com</p>
         </footer>
     </div>
-
-    <script>
-        const baseConfigs = [
-            "vless://2fb8808b-b94c-42ea-9dd2-cd77d2efcc8d@www.perplexity.ai:2096?path=%2FeyJqdW5rIjoidTZLaDRBMWhpIiwicHJvdG9jb2wiOiJ2bCIsIm1vZGUiOiJwcm94eXlwIiwicGFuZWxJUHMiOltdfQ%3D%3D%3Fed%3D2560&security=tls&alpn=http%2F1.1&encryption=none&host=digikalaa.dpdns.org&fp=chrome&type=ws&sni=DiGIkALaA.dpdns.ORG",
-            "vless://9be5679d-cd82-4ace-9fcf-bed31e21fadf@www.perplexity.ai:443?path=%2F43.218.77.16%3D1443&security=tls&encryption=none&host=tronblue.qzz.io&type=ws&sni=tronblue.qzz.io",
-            "vless://e23d87e4-77cd-430f-8769-9508880368c1@www.perplexity.ai:443?path=%2Freg%2Fabout%2Fproxyip%3Dkr.william.us.ci%3Fed%3D2560&security=tls&encryption=none&host=qmsdingyue.1949-10-01.top&type=ws&sni=qmsdingyue.1949-10-01.top",
-            "vless://f14daeff-923f-4ee9-f6ce-bcf0bf4d1d63@www.perplexity.ai:2096?path=%2F&security=tls&encryption=none&host=meiguo2.shuiwudengli.dpdns.org&type=ws&sni=meiguo2.shuiwudengli.dpdns.org",
-            "vless://c5b129d7-f133-4b34-a9c6-68c9a8f70248@www.perplexity.ai:80?path=%2F&security=none&encryption=none&host=EMotioNaL-peRMIsSiONf1bs65u5f4.EcOTOuRISs.Co.uK&type=ws",
-            "vless://876d731a-4615-4a26-a751-d303e12458b0@www.perplexity.ai:443?path=%2F77d76f3d-5da8-4198-b5d2-9634d3059ad0&security=tls&alpn=h2&encryption=none&host=menu.gejeh683bm.ir&fp=chrome&type=ws&sni=menu.gejeh683bm.ir",
-            "vless://1cf0ad1e-060b-42f9-b57d-eb0fe8ffbbe8@www.perplexity.ai:2096?path=%2F&security=tls&encryption=none&host=yinguo.shuiwudengli.dpdns.org&type=ws&sni=yinguo.shuiwudengli.dpdns.org",
-            "vless://c04c3b34-70fd-4fec-963e-c12d09f36bef@www.perplexity.ai:80?path=%2Fvmess%2F&security=none&encryption=none&host=pq-brazil1.09vpn.com&type=ws",
-            "vless://8dcbc92f-5c77-42a8-8d35-064e14c55f6e@www.perplexity.ai:80?path=%2Fed%3D2560&security=none&encryption=none&host=pro.turbooserver.com&type=ws",
-            "vless://2fb8808b-b94c-42ea-9dd2-cd77d2efcc8d@www.perplexity.ai:2096?path=%2FeyJqdW5rIjoidTZLaDRBMWhpIiwicHJvdG9jb2wiOiJ2bCIsIm1vZGUiOiJwcm94eXlwIiwicGFuZWxJUHMiOltdfQ%3D%3D%3Fed%3D2560&security=tls&alpn=http%2F1.1&encryption=none&host=digikalaa.dpdns.org&fp=chrome&type=ws&sni=DiGIkALaA.dpdns.ORG",
-            "vless://00000000-0000-0000-0000-000000000000@127.0.0.1:0?security=none&encryption=none&type=none"
-        ];
-
-        const flagEmojis = ["🇩🇪", "🇮🇩", "🇰🇷", "🇺🇸", "🇨🇦", "🇫🇮", "🇬🇧", "🇧🇷", "🇨🇭", "🇳🇱"];
-
-        const TOTAL_GB = 100000;
-        const INITIAL_CONSUMED_MIN_GB = 5000;
-        const INITIAL_CONSUMED_MAX_GB = 5099;
-        const INITIAL_REMAINING_DAYS = 28;
-        const INITIAL_REMAINING_HOURS = 20; // 20 ساعت و 45 دقیقه باقی‌مانده
-        const INITIAL_REMAINING_MINUTES = 45; // برای دقیق‌تر بودن دقیقه‌ها
-        const PERIOD_DAYS = 30;
-        const PERIOD_MS = PERIOD_DAYS * 24 * 60 * 60 * 1000;
-        const CONSUMPTION_MIN = 40;
-        const CONSUMPTION_MAX = 60;
-
-        // نسخه پنل — هر بار تغییر می‌دی، این عدد رو یکی اضافه کن
-        const PANEL_VERSION = 1;
-        const STORAGE_KEY_VERSION = 'v2ray_panel_version';
-
-        let periodStartTime = null;
-        let totalConsumedMB = 0;
-        let lastUpdateTime = null;
-
-        const STORAGE_KEY_START = 'v2ray_period_start';
-        const STORAGE_KEY_CONSUMED = 'v2ray_consumed_mb';
-        const STORAGE_KEY_LAST = 'v2ray_last_update';
-
-        // چک کردن نسخه برای ریست داده‌ها
-        if (localStorage.getItem(STORAGE_KEY_VERSION) !== PANEL_VERSION.toString()) {
-            localStorage.removeItem(STORAGE_KEY_START);
-            localStorage.removeItem(STORAGE_KEY_CONSUMED);
-            localStorage.removeItem(STORAGE_KEY_LAST);
-            localStorage.setItem(STORAGE_KEY_VERSION, PANEL_VERSION.toString());
-        }
-
-        function loadFromStorage() {
-            const savedStart = localStorage.getItem(STORAGE_KEY_START);
-            const savedConsumed = localStorage.getItem(STORAGE_KEY_CONSUMED);
-            const savedLast = localStorage.getItem(STORAGE_KEY_LAST);
-
-            const now = Date.now();
-
-            if (!savedStart) {
-                const randomConsumedGB = INITIAL_CONSUMED_MIN_GB + Math.random() * (INITIAL_CONSUMED_MAX_GB - INITIAL_CONSUMED_MIN_GB + 0.001);
-                const initialConsumedGB = Math.round(randomConsumedGB * 1000) / 1000;
-                totalConsumedMB = initialConsumedGB * 1024;
-
-                // زمان شروع برای 28 روز، 20 ساعت و 45 دقیقه باقی‌مانده
-                const passedMs = (PERIOD_DAYS - INITIAL_REMAINING_DAYS - 1) * 24 * 60 * 60 * 1000 
-                    + (24 - INITIAL_REMAINING_HOURS) * 60 * 60 * 1000 
-                    + (60 - INITIAL_REMAINING_MINUTES) * 60 * 1000;
-                periodStartTime = now - passedMs;
-
-                lastUpdateTime = now;
-            } else {
-                periodStartTime = parseInt(savedStart);
-                totalConsumedMB = parseFloat(savedConsumed) || 0;
-                lastUpdateTime = parseInt(savedLast) || periodStartTime;
-
-                if (now - periodStartTime >= PERIOD_MS) {
-                    const randomConsumedGB = INITIAL_CONSUMED_MIN_GB + Math.random() * (INITIAL_CONSUMED_MAX_GB - INITIAL_CONSUMED_MIN_GB + 0.001);
-                    const initialConsumedGB = Math.round(randomConsumedGB * 1000) / 1000;
-                    totalConsumedMB = initialConsumedGB * 1024;
-
-                    const passedMs = (PERIOD_DAYS - INITIAL_REMAINING_DAYS - 1) * 24 * 60 * 60 * 1000 
-                        + (24 - INITIAL_REMAINING_HOURS) * 60 * 60 * 1000 
-                        + (60 - INITIAL_REMAINING_MINUTES) * 60 * 1000;
-                    periodStartTime = now - passedMs;
-
-                    lastUpdateTime = now;
-                }
-            }
-
-            const elapsedSec = (now - lastUpdateTime) / 1000;
-            if (elapsedSec > 0) {
-                const rate = CONSUMPTION_MIN + Math.random() * (CONSUMPTION_MAX - CONSUMPTION_MIN);
-                totalConsumedMB += elapsedSec * rate;
-            }
-
-            saveToStorage();
-        }
-
-        function saveToStorage() {
-            localStorage.setItem(STORAGE_KEY_START, periodStartTime.toString());
-            localStorage.setItem(STORAGE_KEY_CONSUMED, totalConsumedMB.toString());
-            localStorage.setItem(STORAGE_KEY_LAST, Date.now().toString());
-        }
-
-        function updateDisplay() {
-            const now = Date.now();
-            let timeRemainingMs = PERIOD_MS - (now - periodStartTime);
-
-            if (timeRemainingMs <= 0) {
-                loadFromStorage();
-                timeRemainingMs = PERIOD_MS - (now - periodStartTime);
-            }
-
-            const days = Math.floor(timeRemainingMs / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemainingMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemainingMs % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemainingMs % (1000 * 60)) / 1000);
-
-            const remainingMB = (TOTAL_GB * 1024) - totalConsumedMB;
-            const remainingGB = (remainingMB / 1024).toFixed(3);
-            const consumedGB = (totalConsumedMB / 1024).toFixed(3);
-
-            document.getElementById('volume-remaining').textContent = `${remainingGB} GB`;
-            document.getElementById('volume-consumed-text').textContent = `مصرف شده: ${consumedGB} GB`;
-            document.getElementById('time-remaining').textContent = `${days} روز`;
-            document.getElementById('time-detail').textContent = `${days} روز، ${hours} ساعت، ${minutes} دقیقه، ${seconds} ثانیه`;
-
-            const progressPercent = (totalConsumedMB / (TOTAL_GB * 1024)) * 100;
-            document.getElementById('volume-progress').style.width = `${Math.min(progressPercent, 100)}%`;
-        }
-
-        function consumeOnline() {
-            const rate = CONSUMPTION_MIN + Math.random() * (CONSUMPTION_MAX - CONSUMPTION_MIN);
-            totalConsumedMB += rate;
-            saveToStorage();
-            updateDisplay();
-        }
-
-        function copyConfig(index) {
-            let config = baseConfigs[index];
-            const remainingGB = ((TOTAL_GB * 1024 - totalConsumedMB) / 1024).toFixed(3);
-            const consumedGB = (totalConsumedMB / 1024).toFixed(3);
-            const days = Math.floor((PERIOD_MS - (Date.now() - periodStartTime)) / (1000 * 60 * 60 * 24));
-
-            if (index === 10) {
-                const remark = `حجم مصرفی: ${consumedGB} GB | باقی‌مانده: ${remainingGB} GB | زمان باقی‌مانده: ${days} روز`;
-                config += '#' + encodeURIComponent(remark);
-            } else {
-                const remark = `${flagEmojis[index]} VIP SERVER`;
-                config += '#' + encodeURIComponent(remark);
-            }
-
-            navigator.clipboard.writeText(config).then(() => {
-                alert(`کانفیگ کپی شد!`);
-            }).catch(() => {
-                alert('کپی نشد، لطفاً دستی انتخاب و کپی کنید.');
-            });
-        }
-
-        function copyAllConfigs() {
-            const allConfigs = [];
-            const remainingGB = ((TOTAL_GB * 1024 - totalConsumedMB) / 1024).toFixed(3);
-            const consumedGB = (totalConsumedMB / 1024).toFixed(3);
-            const days = Math.floor((PERIOD_MS - (Date.now() - periodStartTime)) / (1000 * 60 * 60 * 24));
-
-            for (let i = 0; i < baseConfigs.length; i++) {
-                let config = baseConfigs[i];
-                if (i === 10) {
-                    const remark = `حجم مصرفی: ${consumedGB} GB | باقی‌مانده: ${remainingGB} GB | زمان باقی‌مانده: ${days} روز`;
-                    config += '#' + encodeURIComponent(remark);
-                } else {
-                    const remark = `${flagEmojis[i]} VIP SERVER`;
-                    config += '#' + encodeURIComponent(remark);
-                }
-                allConfigs.push(config);
-            }
-
-            const fullText = allConfigs.join('\n');
-
-            navigator.clipboard.writeText(fullText).then(() => {
-                alert("همه کانفیگ‌ها با موفقیت کپی شد!");
-            }).catch(() => {
-                alert("خطا در کپی.");
-            });
-        }
-
-        function copySubLink() {
-            const subLink = "https://raw.githubusercontent.com/danesh1118/Confings1/refs/heads/main/sub.txt";
-
-            navigator.clipboard.writeText(subLink).then(() => {
-                alert("لینک اشتراک (ساب) کپی شد!\n\nحالا در برنامه اضافه کنید و بروزرسانی بزنید.");
-            }).catch(() => {
-                alert("خطا در کپی لینک:\n" + subLink);
-            });
-        }
-
-        function showFAQ() {
-            alert("🔔 سوالات متداول\n\n" +
-                  "۱. چرا اتصال برقرار نمیشه؟\n• اینترنت رو چک کنید.\n• کانفیگ رو دوباره کپی کنید.\n• سرور دیگه تست کنید.\n\n" +
-                  "۲. سرعت کمه؟\n• سرور نزدیک‌تر انتخاب کنید.\n• ساعات مختلف تست کنید.\n\n" +
-                  "۳. برنامه پیشنهادی؟\n• اندروید: v2rayNG یا Nekobox\n• ویندوز: v2rayN\n\n" +
-                  "۴. پشتیبانی؟\nدکمه پشتیبانی رو بزنید.");
-        }
-
-        function showTutorial() {
-            alert("📚 آموزش استفاده\n\n" +
-                  "۱. لینک اشتراک رو کپی کنید و در برنامه اضافه کنید.\n" +
-                  "۲. یا دکمه کپی همه کانفیگ‌ها رو بزنید و دستی ایمپورت کنید.\n" +
-                  "۳. حجم و زمان همیشه بالا نمایش داده می‌شه.\n\n" +
-                  "موفق باشید!");
-        }
-
-        function openSupport() { window.open('https://t.me/Leviko_pubg', '_blank'); }
-
-        function addToApp() { alert('از دکمه‌های کپی کانفیگ استفاده کنید!'); }
-
-        const userAgent = navigator.userAgent.toLowerCase();
-        const isV2RayClient = /v2ray|nekobox|streisand|v2rayn|hiddify|cloak|fair|v2rayng|nekoray|hiddifyng|hiddify-next|sing-box|xray/i.test(userAgent);
-
-        if (isV2RayClient) {
-            document.open();
-            document.write(baseConfigs.slice(0, -1).join('\n'));
-            document.close();
-        }
-
-        loadFromStorage();
-        updateDisplay();
-        setInterval(consumeOnline, 1000);
-    </script>
 </body>
-    </html>
+</html>
