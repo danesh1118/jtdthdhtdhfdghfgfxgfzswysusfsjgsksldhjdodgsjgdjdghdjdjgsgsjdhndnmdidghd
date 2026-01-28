@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+         <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -274,14 +274,16 @@
 
     <script>
         const serverConfigs = [
+            // ۱ - قبلی بلغارستان
             {
                 "remarks": "🇧🇬",
                 "log": {"loglevel": "warning"},
                 "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
-                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "104.17.162.123", "port": 8443, "users": [{"id": "83f03646-fb28-44cc-9d2c-8853f6c09285", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/?ed=#TELEGRAM-napsternet2?ed=512", "headers": {"Host": "r4fnviw9jl4i4rx.zjde5.de5.net"}}, "tlsSettings": {"allowInsecure": true, "serverName": "r4fnviw9jl4i4rx.zjde5.de5.net", "alpn": ["http/1.1"], "fingerprint": "random", "show": false}}, "mux": {"enabled": false, "concurrency": -1, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "direct", "protocol": "freedom", "settings": {"domainStrategy": "UseIP"}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "block", "protocol": "blackhole", "settings": {"response": {"type": "http"}}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "104.17.162.123", "port": 8443, "users": [{"id": "83f03646-fb28-44cc-9d2c-8853f6c09285", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/?ed=#TELEGRAM-YamYamProxy_YamYamProxy_YamYamProxy_YamYamProxy_YamYamProxy?ed=512", "headers": {"Host": "r4fnviw9jl4i4rx.zjde5.de5.net"}}, "tlsSettings": {"allowInsecure": true, "serverName": "r4fnviw9jl4i4rx.zjde5.de5.net", "alpn": ["http/1.1"], "fingerprint": "random", "show": false}}, "mux": {"enabled": false, "concurrency": -1, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "direct", "protocol": "freedom", "settings": {"domainStrategy": "UseIP"}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "block", "protocol": "blackhole", "settings": {"response": {"type": "http"}}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}],
                 "dns": {"servers": ["1.1.1.1"], "hosts": {"domain:googleapis.cn": "googleapis.com", "dns.alidns.com": ["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"], "one.one.one.one": ["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"], "dot.pub": ["1.12.12.12","120.53.53.53"], "dns.google": ["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"], "dns.quad9.net": ["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"], "common.dot.dns.yandex.net": ["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},
                 "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}
             },
+            // ۲ - قبلی آذربایجان
             {
                 "remarks": "🇦🇿",
                 "log": {"loglevel": "warning"},
@@ -290,29 +292,49 @@
                 "dns": {"servers": ["1.1.1.1"], "hosts": {"domain:googleapis.cn": "googleapis.com", "dns.alidns.com": ["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"], "one.one.one.one": ["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"], "dot.pub": ["1.12.12.12","120.53.53.53"], "dns.google": ["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"], "dns.quad9.net": ["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"], "common.dot.dns.yandex.net": ["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},
                 "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}
             },
+            // ۳ - آندورا (قبلی)
             {
-                "remarks": "🇦🇩",
+                "remarks": "🇦🇩 Andorra",
                 "log": {"loglevel": "warning"},
                 "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
                 "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "188.114.98.0", "port": 443, "users": [{"id": "adaa4ecc-6d82-49c6-9b01-14f6f8e00e08", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/", "headers": {"Host": "BuPwFrVsD0.gIgAcOnFaPp.InFo"}}, "tlsSettings": {"serverName": "BuPwFrVsD0.gIgAcOnFaPp.InFo", "allowInsecure": false}}, "mux": {"enabled": false}}, {"tag": "direct", "protocol": "freedom"}, {"tag": "block", "protocol": "blackhole"}],
                 "dns": {"servers": ["1.1.1.1"]},
                 "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type": "field", "outboundTag": "proxy", "network": "tcp,udp"}]}
             },
+            // ۴ - کانادا (قبلی)
             {
-                "remarks": "🇨🇦",
+                "remarks": "🇨🇦 Canada",
                 "log": {"loglevel": "warning"},
                 "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
                 "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "104.18.32.47", "port": 80, "users": [{"id": "860d8f27-ed60-4791-b6a0-e1e471d7ee6d", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "none", "wsSettings": {"path": "/?ed", "headers": {"Host": "NICE-MaNAgEmeNts6CV0rMC2T.ONeEat.co."}}}, "mux": {"enabled": false}}, {"tag": "direct", "protocol": "freedom"}, {"tag": "block", "protocol": "blackhole"}],
                 "dns": {"servers": ["1.1.1.1"]},
                 "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type": "field", "outboundTag": "proxy", "network": "tcp,udp"}]}
+            },
+            // ۵ - جدید آلمان
+            {
+                "remarks": "🇩🇪",
+                "log": {"loglevel": "warning"},
+                "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "104.18.15.19", "port": 8443, "users": [{"id": "0665cf1e-0df8-4981-a8de-a366e37c0866", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/?ed=2560", "headers": {"Host": "xdol7mayq6wu5kil7wjyrni7o8tnydsafcmhfhn7g6rimbw5o2g6mlm.zjde5.de5.net"}}, "tlsSettings": {"allowInsecure": true, "serverName": "xdol7mayq6wu5kil7wjyrni7o8tnydsafcmhfhn7g6rimbw5o2g6mlm.zjde5.de5.net", "alpn": ["http/1.1"], "fingerprint": "chrome", "show": false}}, "mux": {"enabled": false, "concurrency": -1, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "direct", "protocol": "freedom", "settings": {"domainStrategy": "UseIP"}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "block", "protocol": "blackhole", "settings": {"response": {"type": "http"}}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}],
+                "dns": {"servers": ["1.1.1.1"], "hosts": {"domain:googleapis.cn": "googleapis.com", "dns.alidns.com": ["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"], "one.one.one.one": ["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"], "dot.pub": ["1.12.12.12","120.53.53.53"], "dns.google": ["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"], "dns.quad9.net": ["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"], "common.dot.dns.yandex.net": ["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},
+                "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}
+            },
+            // ۶ - جدید بلغارستان دوم
+            {
+                "remarks": "🇧🇬",
+                "log": {"loglevel": "warning"},
+                "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "172.64.145.38", "port": 8443, "users": [{"id": "35011ab1-abb4-482c-b6f7-69d205733e88", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/?ed=2560", "headers": {"Host": "hwscwhnx1vif2e4w2llmoakhiqrh1erpu67.zjde5.de5.net"}}, "tlsSettings": {"allowInsecure": true, "serverName": "hwscwhnx1vif2e4w2llmoakhiqrh1erpu67.zjde5.de5.net", "alpn": ["http/1.1"], "fingerprint": "chrome", "show": false}}, "mux": {"enabled": false, "concurrency": -1, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "direct", "protocol": "freedom", "settings": {"domainStrategy": "UseIP"}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "block", "protocol": "blackhole", "settings": {"response": {"type": "http"}}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}],
+                "dns": {"servers": ["1.1.1.1"], "hosts": {"domain:googleapis.cn": "googleapis.com", "dns.alidns.com": ["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"], "one.one.one.one": ["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"], "dot.pub": ["1.12.12.12","120.53.53.53"], "dns.google": ["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"], "dns.quad9.net": ["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"], "common.dot.dns.yandex.net": ["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},
+                "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}
             }
         ];
 
-        const countryEmojis = ["🇧🇬", "🇦🇿", "🇦🇩", "🇨🇦"];
+        const countryEmojis = ["🇧🇬", "🇦🇿", "🇦🇩", "🇨🇦", "🇩🇪", "🇧🇬"];
 
         const START_TIME = Date.parse('2026-01-27T21:00:00Z');
         const PERIOD_MS = 7 * 24 * 60 * 60 * 1000;
-        const MAX_VOLUME_GB = 50000;
+        const MAX_VOLUME_GB = 75000;
 
         const pattern = [
   0.3194, 0.3946, 0.3605, 0.3062, 0.3953, 0.3326, 0.3767, 0.3047,
@@ -378,7 +400,7 @@
         }
 
         function copySubLink() {
-            const subLink = "https://raw.githubusercontent.com/danesh1118/jtdthdhtdhfdghfgfxgfzswysusfsjgsksldhjdodgsjgdjdghdjdjgsgsjdhndnmdidghd/refs/heads/main/sub.txt";
+            const subLink = "https://raw.githubusercontent.com/danesh1118/dioehwjsu82bbedwuuw9dbeowjbd937euhdhsiw8w6sshshjwu8ww8eyshshhs827eudhdh/refs/heads/main/sub.txt";
             navigator.clipboard.writeText(subLink).then(() => {
                 alert('لینک سابسکریپشن با موفقیت کپی شد!');
             }).catch(() => {
@@ -443,7 +465,7 @@
 
                 <div class="card">
                     <h3>سرعت متوسط</h3>
-                    <div class="value">48 Mbps</div>
+                    <div class="value">14 Mbps</div>
                     <div class="subtext">24 ساعت گذشته</div>
                 </div>
             </div>
@@ -485,10 +507,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>بلغارستان VIP</td><td><img src="https://flagcdn.com/bg.svg" class="flag" alt="BG"> بلغارستان</td><td>48 ms</td><td>24%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(0)">کپی کانفیگ</button></td></tr>
+                            <tr><td>بلغارستان VIP 1</td><td><img src="https://flagcdn.com/bg.svg" class="flag" alt="BG"> بلغارستان</td><td>48 ms</td><td>24%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(0)">کپی کانفیگ</button></td></tr>
                             <tr><td>آذربایجان VIP</td><td><img src="https://flagcdn.com/az.svg" class="flag" alt="AZ"> آذربایجان</td><td>65 ms</td><td>29%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(1)">کپی کانفیگ</button></td></tr>
                             <tr><td>آندورا VIP</td><td><img src="https://flagcdn.com/ad.svg" class="flag" alt="AD"> آندورا</td><td>55 ms</td><td>22%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(2)">کپی کانفیگ</button></td></tr>
                             <tr><td>کانادا VIP</td><td><img src="https://flagcdn.com/ca.svg" class="flag" alt="CA"> کانادا</td><td>110 ms</td><td>35%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(3)">کپی کانفیگ</button></td></tr>
+                            <tr><td>آلمان VIP جدید</td><td><img src="https://flagcdn.com/de.svg" class="flag" alt="DE"> آلمان</td><td>42 ms</td><td>26%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(4)">کپی کانفیگ</button></td></tr>
+                            <tr><td>بلغارستان VIP جدید</td><td><img src="https://flagcdn.com/bg.svg" class="flag" alt="BG"> بلغارستان</td><td>50 ms</td><td>23%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(5)">کپی کانفیگ</button></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -496,8 +520,8 @@
         </div>
 
         <footer>
-            <p>آخرین آپدیت 2026 = پشتیبانی تلگرام:  ===چ</p>
+            <p>آخرین آپدیت 2026 = پشتیبانی تلگرام: Cluad flare ⚡</p>
         </footer>
     </div>
 </body>
-                                                                                                                                                                       </html>
+    </html>                                                                                                                                                 
