@@ -3,500 +3,525 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پنل حرفه‌ای کانفیگ NPV Tunnel</title>
+    <title>پنل V2Ray - نسخه خریداری شده</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
     <style>
         :root {
-            --bg-main: #0a0f1c;
-            --bg-card: rgba(20, 30, 60, 0.75);
-            --accent-primary: #00d4ff;
-            --accent-secondary: #ff00aa;
-            --accent-third: #00ff9d;
-            --text-primary: #e0f7ff;
-            --text-secondary: #b0e0ff;
-            --border-glow: rgba(0, 212, 255, 0.45);
-            --shadow-glow: 0 0 28px rgba(0, 212, 255, 0.4);
-            --gradient-bg: linear-gradient(135deg, #0a0f1c, #001f3f, #0a0f1c);
+            --primary: #4361ee;
+            --success: #06d6a0;
+            --danger: #ef476f;
+            --warning: #ffd166;
+            --gray: #6c757d;
+            --light: #f8f9fa;
+            --premium: linear-gradient(45deg, #f093fb, #f5576c);
+            --copy-all: linear-gradient(135deg, #4361ee, #06d6a0);
         }
 
-        body.light-mode {
-            --bg-main: #f0f8ff;
-            --bg-card: rgba(255, 255, 255, 0.94);
-            --accent-primary: #0066cc;
-            --accent-secondary: #cc0066;
-            --accent-third: #00aa66;
-            --text-primary: #001f3f;
-            --text-secondary: #004080;
-            --border-glow: rgba(0, 102, 204, 0.35);
-            --shadow-glow: 0 6px 24px rgba(0, 102, 204, 0.25);
-            --gradient-bg: linear-gradient(135deg, #e6f0ff, #cce0ff, #e6f0ff);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--gradient-bg);
-            color: var(--text-primary);
-            margin: 0;
-            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            background-attachment: fixed;
-            transition: all 0.4s ease;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 80%, rgba(0,212,255,0.09) 0%, transparent 60%),
-                        radial-gradient(circle at 80% 20%, rgba(255,0,170,0.07) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: -2;
-        }
-
-        header {
-            background: linear-gradient(135deg, #001f3f, #000d1a);
-            padding: 70px 20px 90px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 12px 50px rgba(0,0,0,0.7);
-            border-bottom: 1px solid var(--border-glow);
-        }
-
-        header h1 {
-            font-size: 3.6em;
-            margin: 0;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-third));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(0,212,255,0.6);
-        }
-
-        .tagline {
-            font-size: 1.8em;
-            font-weight: bold;
-            margin-top: 20px;
-            color: var(--accent-third);
-            text-shadow: 0 0 15px rgba(0,255,157,0.5);
-        }
-
-        .mode-switch {
-            position: absolute;
-            top: 30px;
-            left: 30px;
-            background: rgba(255,255,255,0.18);
-            border: 1px solid var(--accent-primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-        }
-
-        .mode-switch:hover {
-            background: var(--accent-primary);
-            box-shadow: var(--shadow-glow);
+            color: #333;
+            padding: 10px;
         }
 
         .container {
-            max-width: 1300px;
-            margin: -70px auto 80px;
-            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 15px;
+        }
+
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
         }
 
         .card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 32px;
-            margin-bottom: 40px;
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-glow);
-            box-shadow: var(--shadow-glow), 0 10px 40px rgba(0,0,0,0.45);
-            transition: all 0.35s;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 70px rgba(0,212,255,0.3);
-        }
-
-        .card h2 {
-            font-size: 2.1em;
-            margin: 0 0 24px;
-            padding-bottom: 14px;
-            border-bottom: 2px solid var(--accent-primary);
-            color: var(--accent-primary);
-            text-shadow: 0 0 12px rgba(0,212,255,0.5);
-        }
-
-        .btn {
-            background: linear-gradient(45deg, var(--accent-primary), #0099cc);
-            color: white;
-            border: none;
-            padding: 15px 36px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 1.15em;
-            font-weight: bold;
-            transition: all 0.3s;
-            box-shadow: 0 6px 18px rgba(0,212,255,0.45);
-            margin: 10px;
-        }
-
-        .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 40px rgba(0,212,255,0.7);
-        }
-
-        .btn-pink {
-            background: linear-gradient(45deg, var(--accent-secondary), #cc0099);
-            box-shadow: 0 6px 18px rgba(255,0,170,0.45);
-        }
-
-        .btn-copy {
-            background: linear-gradient(45deg, #007bff, #00c3ff);
-            box-shadow: 0 4px 12px rgba(0,123,255,0.4);
-            padding: 9px 24px;
-            border-radius: 50px;
-            font-size: 0.95em;
-            min-width: 140px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-block;
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
             text-align: center;
-            color: white;
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        .card .value {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin: 8px 0;
+            color: var(--primary);
+        }
+
+        .card .subtext {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        .status-active { color: var(--success); }
+
+        .progress-bar {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--success);
+            border-radius: 3px;
+            width: 0%;
+        }
+
+        .actions-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .btn-small {
+            padding: 8px 14px;
             border: none;
-        }
-
-        .btn-copy:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0,123,255,0.6);
-        }
-
-        .btn-copy.copied {
-            background: linear-gradient(45deg, #28a745, #34d058) !important;
-        }
-
-        .fab-support {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #0088cc, #00aaff);
-            border-radius: 50%;
-            box-shadow: 0 8px 25px rgba(0, 136, 204, 0.6);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
+            gap: 6px;
+            min-width: 120px;
             justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            transition: all 0.3s;
         }
 
-        .fab-support:hover {
-            transform: scale(1.15);
-            box-shadow: 0 15px 40px rgba(0, 136, 204, 0.9);
-        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn-warning { background: var(--warning); color: #333; }
 
-        .fab-support::before {
-            content: "پشتیبانی";
-            position: absolute;
-            top: -38px;
-            background: rgba(0,0,0,0.8);
+        .btn-premium {
+            padding: 12px 24px;
+            background: var(--premium);
             color: white;
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 0.95em;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 200px;
+            justify-content: center;
         }
 
-        .fab-support:hover::before {
-            opacity: 1;
+        .btn-premium:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(240, 147, 251, 0.6);
         }
 
-        .fab-support svg {
-            width: 44px;
-            height: 44px;
-            fill: white;
+        .btn-premium i {
+            font-size: 1.3rem;
         }
 
-        .table-wrapper {
-            max-width: 900px;
-            margin: 0 auto 25px;
+        .servers-card {
+            grid-column: 1 / -1;
             overflow-x: auto;
         }
 
         table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 8px;
+            border-collapse: collapse;
+            font-size: 0.8rem;
         }
 
         th, td {
-            padding: 8px 12px;
+            padding: 8px;
             text-align: center;
+            border-bottom: 1px solid #eee;
         }
 
         th {
-            background: transparent;
-            color: var(--accent-primary);
-            border-bottom: 2px solid var(--accent-primary);
+            background: var(--primary);
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        .flag {
+            width: 24px;
+            height: 16px;
+            border-radius: 3px;
+            vertical-align: middle;
+        }
+
+        .copy-btn {
+            padding: 6px 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .copy-btn:hover {
+            background: #3654d1;
+        }
+
+        .copy-all-manual-btn {
+            padding: 12px 30px;
+            background: var(--copy-all);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
             font-weight: bold;
-            font-size: 1em;
+            cursor: pointer;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
         }
 
-        td {
-            background: transparent;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
-            transition: background 0.2s;
-            font-size: 0.95em;
+        .copy-all-manual-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
-        tr:hover td {
-            background: rgba(0, 212, 255, 0.08);
+        .copy-all-manual-btn i {
+            margin-left: 8px;
         }
 
-        td:first-child {
-            text-align: right;
-            font-weight: 600;
-        }
-
-        .list-title {
-            font-size: 1.7em;
-            color: var(--accent-third);
-            text-align: center;
-            margin: 20px 0 30px;
+        .copy-sub-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
             font-weight: bold;
+            cursor: pointer;
+            margin: 15px auto;
+            display: block;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+
+        .copy-sub-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .copy-sub-btn i {
+            margin-left: 8px;
         }
 
         footer {
-            background: linear-gradient(135deg, #001f3f, #000d1a);
-            color: var(--text-secondary);
+            background: #1a1a2e;
+            color: #aaa;
             text-align: center;
-            padding: 35px;
-            margin-top: 70px;
-            border-top: 1px solid var(--border-glow);
-        }
-
-        .accordion-item {
-            margin-bottom: 16px;
-        }
-
-        .accordion-header {
-            background: rgba(30, 45, 80, 0.7);
-            padding: 16px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: 1px solid var(--border-glow);
-        }
-
-        .accordion-header:hover,
-        .accordion-header.active {
-            background: var(--accent-primary);
-            color: white;
-            box-shadow: var(--shadow-glow);
-        }
-
-        .accordion-content {
-            display: none;
-            padding: 20px;
-            background: rgba(20, 35, 70, 0.4);
-            border-radius: 0 0 12px 12px;
-            border: 1px solid var(--border-glow);
-            border-top: none;
-            line-height: 1.7;
+            padding: 12px;
+            font-size: 0.8rem;
+            margin-top: 15px;
         }
 
         @media (max-width: 768px) {
-            header h1 { font-size: 2.8em; }
-            .tagline { font-size: 1.4em; }
-            .fab-support { bottom: 20px; right: 20px; width: 65px; height: 65px; }
-            .fab-support svg { width: 38px; height: 38px; }
-            .table-wrapper { max-width: 100%; }
-            th, td { padding: 7px 10px; font-size: 0.92em; }
-            .btn-copy { padding: 8px 20px; font-size: 0.9em; min-width: 120px; }
+            .compact-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>پنل حرفه‌ای کانفیگ NPV Tunnel</h1>
-        <div class="tagline">سریع . امن . رایگان . پر سرعت</div>
-        <button class="mode-switch" onclick="toggleMode()">حالت روشن</button>
-    </header>
-
-    <div class="container">
-
-        <div class="card">
-            <div class="list-title">لیست کانفیگ‌های رایگان</div>
-
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>نام کانفیگ</th>
-                            <th>وضعیت</th>
-                            <th>پینگ</th>
-                            <th>عملیات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>آلمان 1 🇩🇪 - Germany fast</td>
-                            <td style="color:var(--accent-primary);">فعال</td>
-                            <td style="color:#ffd700;">~40 ms</td>
-                            <td>
-                                <button class="btn btn-copy" data-config='{"remarks":"آلمان 1 🇩🇪 - Germany fast","log":{"loglevel":"warning"},"inbounds":[{"tag":"socks","port":10808,"protocol":"socks","settings":{"auth":"noauth","udp":true,"userLevel":8},"sniffing":{"enabled":true,"destOverride":["http","tls"],"routeOnly":false}}],"outbounds":[{"tag":"proxy","protocol":"vless","settings":{"vnext":[{"address":"104.17.165.123","port":8443,"users":[{"id":"f85f60b1-2b96-49e9-8bde-b656d1516df0","level":8,"encryption":"none"}]}]},"streamSettings":{"network":"ws","security":"tls","wsSettings":{"path":"/?ed=2560","headers":{"Host":"gx8rw8fz783ncefn332y7uyfsvb59o820mryrxu1cj19jiuuur.zjde5.de5.net"}},"tlsSettings":{"allowInsecure":false,"serverName":"gx8rw8fz783ncefn332y7uyfsvb59o820mryrxu1cj19jiuuur.zjde5.de5.net","alpn":["http/1.1"],"fingerprint":"chrome","show":false}},"mux":{"enabled":false,"concurrency":-1,"xudpConcurrency":8,"xudpProxyUDP443":""}},{"tag":"direct","protocol":"freedom","settings":{"domainStrategy":"UseIP"},"mux":{"enabled":false,"concurrency":8,"xudpConcurrency":8,"xudpProxyUDP443":""}},{"tag":"block","protocol":"blackhole","settings":{"response":{"type":"http"}},"mux":{"enabled":false,"concurrency":8,"xudpConcurrency":8,"xudpProxyUDP443":""}}],"dns":{"servers":["1.1.1.1"],"hosts":{"domain:googleapis.cn":"googleapis.com","dns.alidns.com":["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"],"one.one.one.one":["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"],"dot.pub":["1.12.12.12","120.53.53.53"],"dns.google":["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"],"dns.quad9.net":["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"],"common.dot.dns.yandex.net":["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},"routing":{"domainStrategy":"IPIfNonMatch","rules":[{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}}'>
-                                    کپی کانفیگ
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>آلمان 2 🇩🇪 - Germany fast 2</td>
-                            <td style="color:var(--accent-primary);">جدید</td>
-                            <td style="color:#ffd700;">~42 ms</td>
-                            <td>
-                                <button class="btn btn-copy" data-config='{"remarks":"آلمان 2 🇩🇪 - Germany fast 2","log":{"loglevel":"warning"},"inbounds":[{"tag":"socks","port":10808,"protocol":"socks","settings":{"auth":"noauth","udp":true,"userLevel":8},"sniffing":{"enabled":true,"destOverride":["http","tls"],"routeOnly":false}}],"outbounds":[{"tag":"proxy","protocol":"vless","settings":{"vnext":[{"address":"104.17.164.123","port":8443,"users":[{"id":"07a21b46-f4a6-47b6-89d1-98375c44262f","level":8,"encryption":"none"}]}]},"streamSettings":{"network":"ws","security":"tls","wsSettings":{"path":"/?ed=2560","headers":{"Host":"1o1qulwpyj16e5ywam0gb7za0957ey3ujj8odofs87th5erf5bqkf9.zjde5.de5.net"}},"tlsSettings":{"allowInsecure":true,"serverName":"1o1qulwpyj16e5ywam0gb7za0957ey3ujj8odofs87th5erf5bqkf9.zjde5.de5.net","alpn":["http/1.1"],"fingerprint":"chrome","show":false}},"mux":{"enabled":false,"concurrency":-1,"xudpConcurrency":8,"xudpProxyUDP443":""}},{"tag":"direct","protocol":"freedom","settings":{"domainStrategy":"UseIP"},"mux":{"enabled":false,"concurrency":8,"xudpConcurrency":8,"xudpProxyUDP443":""}},{"tag":"block","protocol":"blackhole","settings":{"response":{"type":"http"}},"mux":{"enabled":false,"concurrency":8,"xudpConcurrency":8,"xudpProxyUDP443":""}}],"dns":{"servers":["1.1.1.1"],"hosts":{"domain:googleapis.cn":"googleapis.com","dns.alidns.com":["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"],"one.one.one.one":["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"],"dot.pub":["1.12.12.12","120.53.53.53"],"dns.google":["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"],"dns.quad9.net":["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"],"common.dot.dns.yandex.net":["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},"routing":{"domainStrategy":"IPIfNonMatch","rules":[{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}}'>
-                                    کپی کانفیگ
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>آذربایجان 🇦🇿 - Azerbaijan mod</td>
-                            <td style="color:#ffd700;">فعال</td>
-                            <td style="color:#00ff9d;">~35 ms</td>
-                            <td>
-                                <button class="btn btn-copy" data-config='{"remarks":"آذربایجان 🇦🇿 - Azerbaijan mod","log":{"loglevel":"warning"},"inbounds":[{"tag":"socks","port":10808,"protocol":"socks","settings":{"auth":"noauth","udp":true,"userLevel":8},"sniffing":{"enabled":true,"destOverride":["http","tls"],"routeOnly":false}}],"outbounds":[{"tag":"proxy","protocol":"vless","settings":{"vnext":[{"address":"66.81.247.155","port":443,"users":[{"id":"4525c260-df3c-4f62-b8f1-f4f5f305694b","level":8,"encryption":"none"}]}]},"streamSettings":{"network":"ws","security":"tls","wsSettings":{"path":"/?ed=2560","headers":{"Host":"yyzsuabw9e3qd5ud7ihi5dxm96oglnsvr83cjojnm1efncfhr9ucordq.zjde5.de5.net"}},"tlsSettings":{"allowInsecure":false,"serverName":"yyzsuabw9e3qd5ud7ihi5dxm96oglnsvr83cjojnm1efncfhr9ucordq.zjde5.de5.net","fingerprint":"chrome","show":false}},"mux":{"enabled":false,"concurrency":-1,"xudpConcurrency":8,"xudpProxyUDP443":""}},{"tag":"direct","protocol":"freedom","settings":{"domainStrategy":"UseIP"},"mux":{"enabled":false,"concurrency":8,"xudpConcurrency":8,"xudpProxyUDP443":""}},{"tag":"block","protocol":"blackhole","settings":{"response":{"type":"http"}},"mux":{"enabled":false,"concurrency":8,"xudpConcurrency":8,"xudpProxyUDP443":""}}],"dns":{"servers":["1.1.1.1"],"hosts":{"domain:googleapis.cn":"googleapis.com","dns.alidns.com":["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"],"one.one.one.one":["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"],"dot.pub":["1.12.12.12","120.53.53.53"],"dns.google":["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"],"dns.quad9.net":["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"],"common.dot.dns.yandex.net":["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},"routing":{"domainStrategy":"IPIfNonMatch","rules":[{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}}'>
-                                    کپی کانفیگ
-                                </button>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>بلغارستان 🇧🇬 - Bulgaria safe</td>
-                            <td style="color:var(--accent-primary);">فعال</td>
-                            <td style="color:#00ff9d;">~45 ms</td>
-                            <td>
-                                <button class="btn btn-copy" data-config='{"remarks":"بلغارستان 🇧🇬 - Bulgaria safe","log":{"loglevel":"warning"},"inbounds":[{"tag":"socks","port":10808,"protocol":"socks","settings":{"auth":"noauth","udp":true,"userLevel":8},"sniffing":{"enabled":true,"destOverride":["http","tls"],"routeOnly":false}}],"outbounds":[{"tag":"proxy","protocol":"vless","settings":{"vnext":[{"address":"172.64.145.38","port":8443,"users":[{"id":"bb8c74a1-abc1-4511-b100-9876e30cb65c","level":8,"encryption":"none"}]}]},"streamSettings":{"network":"ws","security":"tls","wsSettings":{"path":"/?ed=2560","headers":{"Host":"xfjd79v2tjscrm6jqo.zjde5.de5.net"}},"tlsSettings":{"allowInsecure":true,"serverName":"xfjd79v2tjscrm6jqo.zjde5.de5.net","alpn":["http/1.1"],"fingerprint":"chrome","show":false}},"mux":{"enabled":false,"concurrency":-1,"xudpConcurrency":8,"xudpProxyUDP443":""}},{"tag":"direct","protocol":"freedom","settings":{"domainStrategy":"UseIP"},"mux":{"enabled":false,"concurrency":8,"xudpConcurrency":8,"xudpProxyUDP443":""}},{"tag":"block","protocol":"blackhole","settings":{"response":{"type":"http"}},"mux":{"enabled":false,"concurrency":8,"xudpConcurrency":8,"xudpProxyUDP443":""}}],"dns":{"servers":["1.1.1.1"],"hosts":{"domain:googleapis.cn":"googleapis.com","dns.alidns.com":["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"],"one.one.one.one":["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"],"dot.pub":["1.12.12.12","120.53.53.53"],"dns.google":["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"],"dns.quad9.net":["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"],"common.dot.dns.yandex.net":["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},"routing":{"domainStrategy":"IPIfNonMatch","rules":[{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}}'>
-                                    کپی کانفیگ
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div style="text-align:center; margin-top:50px;">
-                <a href="https://t.me/Leviko_pubg_bot" target="_blank">
-                    <button class="btn btn-pink">خرید کانفیگ اختصاصی</button>
-                </a>
-            </div>
-        </div>
-
-        <!-- آموزش و سوالات متداول -->
-        <div class="card">
-            <h2>آموزش و سوالات متداول</h2>
-
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion(this)">آموزش وارد کردن کانفیگ در NPV Tunnel</div>
-                <div class="accordion-content">
-                    <p><strong>گام ۱:</strong> اپ NPV Tunnel را باز کنید.</p>
-                    <p><strong>گام ۲:</strong> روی علامت + (افزودن) در پایین صفحه بزنید.</p>
-                    <p><strong>گام ۳:</strong> گزینه Import config from clipboard یا from file را انتخاب کنید.</p>
-                    <p><strong>گام ۴:</strong> کانفیگ کپی‌شده را Paste کنید یا فایل را انتخاب نمایید.</p>
-                    <p><strong>گام ۵:</strong> کانفیگ اضافه شد → آن را انتخاب کنید و دکمه اتصال را بزنید.</p>
-                    <p style="color:#ffcc00; margin-top:15px;">نکته: اگر اتصال برقرار نشد، SNI را چک کنید یا کانفیگ جدید بگیرید.</p>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion(this)">سوالات متداول</div>
-                <div class="accordion-content">
-                    <p><strong>۱. NPV Tunnel چیست؟</strong><br>بهترین کلاینت اندروید برای اتصال امن و سریع</p>
-                    <p><strong>۲. چرا گاهی قطع می‌شه؟</strong><br>سرور شلوغ شده یا SNI نیاز به تعویض دارد – کانفیگ جدید بگیرید.</p>
-                    <p><strong>۳. کانفیگ اختصاصی چطور تهیه کنم؟</strong><br>دکمه «خرید کانفیگ اختصاصی» را بزنید.</p>
-                    <p><strong>۴. پشتیبانی چطوره؟</strong><br>۲۴ ساعته – دکمه آبی پایین صفحه راست</p>
-                </div>
-            </div>
-
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordion(this)">نکات مهم</div>
-                <div class="accordion-content">
-                    <p>• همیشه آخرین نسخه اپ را استفاده کنید</p>
-                    <p>• کانفیگ‌های رایگان را مرتب عوض کنید</p>
-                    <p>• از Kill Switch در تنظیمات اپ فعال کنید</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- دانلود اپ -->
-        <div class="card" style="text-align:center;">
-            <h2>دانلود NPV Tunnel</h2>
-            <div style="margin:40px 0;">
-                <a href="https://apps.apple.com/app/npv-tunnel/id1629465476" target="_blank"><button class="btn">اپ استور (iOS)</button></a>
-                <a href="https://play.google.com/store/apps/details?id=com.napsternetlabs.napsternetv" target="_blank"><button class="btn" style="background:linear-gradient(45deg, var(--accent-third), #00cc88);">گوگل پلی (Android)</button></a>
-            </div>
-        </div>
-
-    </div>
-
-    <a href="https://t.me/Leviko_pubg" target="_blank" class="fab-support">
-        <svg viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="120" cy="120" r="120" fill="white"/>
-            <path d="M98 175c-3.89 0-3.26-1.46-4.61-5.15L82 132.2l136-83.3" fill="#0088cc"/>
-            <path d="M98 175c3 0 4.31-1.44 6-3.5l16-15.5-19.5-11.7" fill="#c8daea"/>
-            <path d="M100.5 145l82.5 60.5c9.4 5.2 16.2 2.5 18.5-8.7l33.5-158c6.3-25.3-9.6-36.7-27.5-29.2l-198 76.3c-26 10.4-25.8 24.9-4.7 31.3l50 15.6 116-73c5.5-3.3 10.5-1.5 6.4 2.2" fill="#ffffff"/>
-        </svg>
-    </a>
-
-    <footer>
-        <p>© ۱۴۰۴ – پنل کانفیگ NPV Tunnel | همه حقوق محفوظ است</p>
-    </footer>
-
     <script>
-        function toggleMode() {
-            document.body.classList.toggle('light-mode');
-            const btn = document.querySelector('.mode-switch');
-            btn.textContent = document.body.classList.contains('light-mode') ? 'حالت تاریک' : 'حالت روشن';
+        const serverConfigs = [
+            // ۱ - قبلی بلغارستان
+            {
+                "remarks": "🇧🇬",
+                "log": {"loglevel": "warning"},
+                "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "104.17.162.123", "port": 8443, "users": [{"id": "83f03646-fb28-44cc-9d2c-8853f6c09285", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/?ed=#TELEGRAM-YamYamProxy_YamYamProxy_YamYamProxy_YamYamProxy_YamYamProxy?ed=512", "headers": {"Host": "r4fnviw9jl4i4rx.zjde5.de5.net"}}, "tlsSettings": {"allowInsecure": true, "serverName": "r4fnviw9jl4i4rx.zjde5.de5.net", "alpn": ["http/1.1"], "fingerprint": "random", "show": false}}, "mux": {"enabled": false, "concurrency": -1, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "direct", "protocol": "freedom", "settings": {"domainStrategy": "UseIP"}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "block", "protocol": "blackhole", "settings": {"response": {"type": "http"}}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}],
+                "dns": {"servers": ["1.1.1.1"], "hosts": {"domain:googleapis.cn": "googleapis.com", "dns.alidns.com": ["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"], "one.one.one.one": ["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"], "dot.pub": ["1.12.12.12","120.53.53.53"], "dns.google": ["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"], "dns.quad9.net": ["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"], "common.dot.dns.yandex.net": ["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},
+                "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}
+            },
+            // ۲ - قبلی آذربایجان
+            {
+                "remarks": "🇦🇿",
+                "log": {"loglevel": "warning"},
+                "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "66.81.247.155", "port": 443, "users": [{"id": "4525c260-df3c-4f62-b8f1-f4f5f305694b", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/?ed=512", "headers": {"Host": "yyzsuabw9e3qd5ud7ihi5dxm96oglnsvr83cjojnm1efncfhr9ucordq.zjde5.de5.net"}}, "tlsSettings": {"allowInsecure": true, "serverName": "yyzsuabw9e3qd5ud7ihi5dxm96oglnsvr83cjojnm1efncfhr9ucordq.zjde5.de5.net", "fingerprint": "chrome", "show": false}}, "mux": {"enabled": false, "concurrency": -1, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "direct", "protocol": "freedom", "settings": {"domainStrategy": "UseIP"}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "block", "protocol": "blackhole", "settings": {"response": {"type": "http"}}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}],
+                "dns": {"servers": ["1.1.1.1"], "hosts": {"domain:googleapis.cn": "googleapis.com", "dns.alidns.com": ["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"], "one.one.one.one": ["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"], "dot.pub": ["1.12.12.12","120.53.53.53"], "dns.google": ["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"], "dns.quad9.net": ["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"], "common.dot.dns.yandex.net": ["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},
+                "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}
+            },
+            // ۳ - آندورا (قبلی)
+            {
+                "remarks": "🇦🇩 Andorra",
+                "log": {"loglevel": "warning"},
+                "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "188.114.98.0", "port": 443, "users": [{"id": "adaa4ecc-6d82-49c6-9b01-14f6f8e00e08", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/", "headers": {"Host": "BuPwFrVsD0.gIgAcOnFaPp.InFo"}}, "tlsSettings": {"serverName": "BuPwFrVsD0.gIgAcOnFaPp.InFo", "allowInsecure": false}}, "mux": {"enabled": false}}, {"tag": "direct", "protocol": "freedom"}, {"tag": "block", "protocol": "blackhole"}],
+                "dns": {"servers": ["1.1.1.1"]},
+                "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type": "field", "outboundTag": "proxy", "network": "tcp,udp"}]}
+            },
+            // ۴ - کانادا (قبلی)
+            {
+                "remarks": "🇨🇦 Canada",
+                "log": {"loglevel": "warning"},
+                "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "104.18.32.47", "port": 80, "users": [{"id": "860d8f27-ed60-4791-b6a0-e1e471d7ee6d", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "none", "wsSettings": {"path": "/?ed", "headers": {"Host": "NICE-MaNAgEmeNts6CV0rMC2T.ONeEat.co."}}}, "mux": {"enabled": false}}, {"tag": "direct", "protocol": "freedom"}, {"tag": "block", "protocol": "blackhole"}],
+                "dns": {"servers": ["1.1.1.1"]},
+                "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type": "field", "outboundTag": "proxy", "network": "tcp,udp"}]}
+            },
+            // ۵ - جدید آلمان
+            {
+                "remarks": "🇩🇪",
+                "log": {"loglevel": "warning"},
+                "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "104.18.15.19", "port": 8443, "users": [{"id": "0665cf1e-0df8-4981-a8de-a366e37c0866", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/?ed=2560", "headers": {"Host": "xdol7mayq6wu5kil7wjyrni7o8tnydsafcmhfhn7g6rimbw5o2g6mlm.zjde5.de5.net"}}, "tlsSettings": {"allowInsecure": true, "serverName": "xdol7mayq6wu5kil7wjyrni7o8tnydsafcmhfhn7g6rimbw5o2g6mlm.zjde5.de5.net", "alpn": ["http/1.1"], "fingerprint": "chrome", "show": false}}, "mux": {"enabled": false, "concurrency": -1, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "direct", "protocol": "freedom", "settings": {"domainStrategy": "UseIP"}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "block", "protocol": "blackhole", "settings": {"response": {"type": "http"}}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}],
+                "dns": {"servers": ["1.1.1.1"], "hosts": {"domain:googleapis.cn": "googleapis.com", "dns.alidns.com": ["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"], "one.one.one.one": ["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"], "dot.pub": ["1.12.12.12","120.53.53.53"], "dns.google": ["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"], "dns.quad9.net": ["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"], "common.dot.dns.yandex.net": ["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},
+                "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}
+            },
+            // ۶ - جدید بلغارستان دوم
+            {
+                "remarks": "🇧🇬",
+                "log": {"loglevel": "warning"},
+                "inbounds": [{"tag": "socks", "port": 10808, "protocol": "socks", "settings": {"auth": "noauth", "udp": true, "userLevel": 8}, "sniffing": {"enabled": true, "destOverride": ["http", "tls"], "routeOnly": false}}],
+                "outbounds": [{"tag": "proxy", "protocol": "vless", "settings": {"vnext": [{"address": "172.64.145.38", "port": 8443, "users": [{"id": "35011ab1-abb4-482c-b6f7-69d205733e88", "level": 8, "encryption": "none"}]}]}, "streamSettings": {"network": "ws", "security": "tls", "wsSettings": {"path": "/?ed=2560", "headers": {"Host": "hwscwhnx1vif2e4w2llmoakhiqrh1erpu67.zjde5.de5.net"}}, "tlsSettings": {"allowInsecure": true, "serverName": "hwscwhnx1vif2e4w2llmoakhiqrh1erpu67.zjde5.de5.net", "alpn": ["http/1.1"], "fingerprint": "chrome", "show": false}}, "mux": {"enabled": false, "concurrency": -1, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "direct", "protocol": "freedom", "settings": {"domainStrategy": "UseIP"}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}, {"tag": "block", "protocol": "blackhole", "settings": {"response": {"type": "http"}}, "mux": {"enabled": false, "concurrency": 8, "xudpConcurrency": 8, "xudpProxyUDP443": ""}}],
+                "dns": {"servers": ["1.1.1.1"], "hosts": {"domain:googleapis.cn": "googleapis.com", "dns.alidns.com": ["223.5.5.5","223.6.6.6","2400:3200::1","2400:3200:baba::1"], "one.one.one.one": ["1.1.1.1","1.0.0.1","2606:4700:4700::1111","2606:4700:4700::1001"], "dot.pub": ["1.12.12.12","120.53.53.53"], "dns.google": ["8.8.8.8","8.8.4.4","2001:4860:4860::8888","2001:4860:4860::8844"], "dns.quad9.net": ["9.9.9.9","149.112.112.112","2620:fe::fe","2620:fe::9"], "common.dot.dns.yandex.net": ["77.88.8.8","77.88.8.1","2a02:6b8::feed:0ff","2a02:6b8:0:1::feed:0ff"]}},
+                "routing": {"domainStrategy": "IPIfNonMatch", "rules": [{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"},{"type":"field","ip":["1.1.1.1"],"outboundTag":"proxy","port":"53"},{"type":"field","ip":["223.5.5.5"],"outboundTag":"direct","port":"53"}]}
+            }
+        ];
+
+        const countryEmojis = ["🇧🇬", "🇦🇿", "🇦🇩", "🇨🇦", "🇩🇪", "🇧🇬"];
+
+        const START_TIME = Date.parse('2026-01-27T21:00:00Z');
+        const PERIOD_MS = 7 * 24 * 60 * 60 * 1000;
+        const MAX_VOLUME_GB = 75000;
+
+        const pattern = [
+  0.3194, 0.3946, 0.3605, 0.3062, 0.3953, 0.3326, 0.3767, 0.3047,
+  0.3891, 0.3209, 0.3504, 0.3961, 0.3116, 0.3837, 0.3450, 0.3078,
+  0.3721, 0.4000, 0.3147, 0.3589, 0.3279, 0.3907, 0.3000, 0.3674,
+  0.3860, 0.3349, 0.3140, 0.3791, 0.3465, 0.3093, 0.3977, 0.3225,
+  0.3651, 0.3023, 0.3806, 0.3411, 0.3163, 0.3922, 0.3550, 0.3295,
+  0.3736, 0.3101, 0.3992, 0.3357, 0.3527, 0.3062, 0.3853, 0.3690,
+  0.3310, 0.3008, 0.3775, 0.3442, 0.3124, 0.3969, 0.3233, 0.3574,
+  0.3853, 0.3178, 0.3938, 0.3953
+        ];
+
+        const patternSumPerMinuteGB = pattern.reduce((a, b) => a + b, 0);
+
+        function calculateUsage() {
+            const now = Date.now();
+            let elapsedMs = now - START_TIME;
+            if (elapsedMs < 0) elapsedMs = 0;
+            if (elapsedMs > PERIOD_MS) elapsedMs = PERIOD_MS;
+
+            const elapsedSeconds = Math.floor(elapsedMs / 1000);
+            const fullMinutes = Math.floor(elapsedSeconds / 60);
+            const secondsInMinute = elapsedSeconds % 60;
+
+            let totalConsumedGB = fullMinutes * patternSumPerMinuteGB;
+            for (let i = 0; i < secondsInMinute; i++) {
+                totalConsumedGB += pattern[i % pattern.length];
+            }
+
+            totalConsumedGB = Math.min(totalConsumedGB, MAX_VOLUME_GB);
+
+            const consumedGB = totalConsumedGB.toFixed(4);
+            const remainingGB = (MAX_VOLUME_GB - totalConsumedGB).toFixed(4);
+
+            const timeLeftMs = PERIOD_MS - elapsedMs;
+            const days = Math.max(0, Math.floor(timeLeftMs / 86400000));
+            const hours = Math.floor((timeLeftMs % 86400000) / 3600000);
+            const minutes = Math.floor((timeLeftMs % 3600000) / 60000);
+            const seconds = Math.floor((timeLeftMs % 60000) / 1000);
+
+            return { remainingGB, consumedGB, days, hours, minutes, seconds, totalConsumedGB };
         }
 
-        function toggleAccordion(header) {
-            const content = header.nextElementSibling;
-            content.style.display = content.style.display === 'block' ? 'none' : 'block';
-            header.classList.toggle('active');
-        }
+        function copyConfig(index) {
+            const config = serverConfigs[index];
+            const jsonString = JSON.stringify(config, null, 2);
 
-        // کپی به کلیپ‌بورد برای کانفیگ‌های vless
-        document.querySelectorAll('.btn-copy').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const configText = this.getAttribute('data-config');
-                
-                if (!configText) {
-                    alert('کانفیگ پیدا نشد!');
-                    return;
-                }
-
-                navigator.clipboard.writeText(configText).then(() => {
-                    const originalText = this.textContent.trim();
-                    this.textContent = 'کپی شد ✓';
-                    this.classList.add('copied');
-                    
-                    setTimeout(() => {
-                        this.textContent = originalText;
-                        this.classList.remove('copied');
-                    }, 2000);
-                }).catch(err => {
-                    alert('خطا در کپی: ' + err);
-                });
+            navigator.clipboard.writeText(jsonString).then(() => {
+                alert(`کانفیگ JSON سرور ${countryEmojis[index]} کپی شد!`);
+            }).catch(() => {
+                prompt('کپی نشد، لطفاً دستی کپی کنید:', jsonString);
             });
+        }
+
+        function copyAllManual() {
+            const subscriptionJson = JSON.stringify(serverConfigs, null, 2);
+
+            navigator.clipboard.writeText(subscriptionJson).then(() => {
+                alert('تمام کانفیگ‌ها به صورت subscription JSON کپی شدند!');
+            }).catch(() => {
+                prompt('کپی نشد، لطفاً دستی کپی کنید:', subscriptionJson);
+            });
+        }
+
+        function copySubLink() {
+            const subLink = "https://raw.githubusercontent.com/danesh1118/dioehwjsu82bbedwuuw9dbeowjbd937euhdhsiw8w6sshshjwu8ww8eyshshhs827eudhdh/refs/heads/main/sub.txt";
+            navigator.clipboard.writeText(subLink).then(() => {
+                alert('لینک سابسکریپشن با موفقیت کپی شد!');
+            }).catch(() => {
+                prompt('کپی نشد، لطفاً دستی کپی کنید:', subLink);
+            });
+        }
+
+        function updateDisplay() {
+            const data = calculateUsage();
+
+            document.getElementById('volume-remaining').textContent = `${data.remainingGB} GB`;
+            document.getElementById('volume-consumed-text').textContent = `مصرف شده: ${data.consumedGB} GB`;
+            document.getElementById('time-remaining').textContent = `${data.days} روز`;
+            document.getElementById('time-detail').textContent = `${data.days} روز، ${data.hours} ساعت، ${data.minutes} دقیقه، ${data.seconds} ثانیه`;
+            document.getElementById('volume-progress').style.width = `${(data.totalConsumedGB / MAX_VOLUME_GB) * 100}%`;
+        }
+
+        function openSupport() { window.open('https://t.me/@', '_blank'); }
+
+        function addToApp() { alert('از دکمه‌های «کپی کانفیگ» کنار هر سرور استفاده کنید!'); }
+
+        function showFAQ() {
+            alert(`سوالات متداول:\n\n۱. چطور کانفیگ رو اضافه کنم؟\n- دکمه "کپی کانفیگ" رو بزنید و لینک رو در برنامه V2RayNG، Hiddify، Nekobox یا مشابه کپی کنید.\n\n۲. حجم یا زمان تموم شد چیکار کنم؟\n- با پشتیبانی تماس بگیرید تا اشتراک تمدید شود.\n\n۳. چرا سرعت کمه؟\n- سرورهای مختلف رو تست کنید. سرورهای نزدیک‌تر معمولاً سریع‌ترن.\n\n۴. کانفیگ کار نمی‌کنه؟\n- مطمئن شوید از آخرین نسخه برنامه استفاده می‌کنید و فیلترشکن خاموشه.\n\n۵. چطور حجم باقی‌مونده رو ببینم؟\n- همین پنل رو باز کنید، اطلاعات به‌روز نمایش داده می‌شه.`);
+        }
+
+        function showTutorial() {
+            alert(`آموزش استفاده از پنل V2Ray:\n\n۱. روی دکمه "کپی کانفیگ" کنار سرور مورد نظر کلیک کنید.\n۲. لینک کپی‌شده رو در برنامه خود (مثل V2RayNG، Hiddify، Nekobox) اضافه کنید.\n۳. اتصال رو برقرار کنید و از اینترنت پرسرعت لذت ببرید!\n\nنکته: هر سرور ویژگی‌های متفاوتی داره (پینگ، بار، کشور). بهترین رو بر اساس نیازتون انتخاب کنید.\n\nدر صورت مشکل با پشتیبانی در تماس باشید.`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateDisplay();
+            setInterval(updateDisplay, 1000);
         });
     </script>
+
+    <div class="container">
+        <header>
+            <h1>پنل V2Ray - نسخه خریداری شده</h1>
+            <p>مدیریت سریع اشتراک و سرورها</p>
+        </header>
+
+        <div class="main-content">
+            <div class="compact-grid">
+                <div class="card">
+                    <h3>حجم باقی‌مانده</h3>
+                    <div class="value" id="volume-remaining">100000.0000 GB</div>
+                    <div class="progress-bar"><div class="progress" id="volume-progress"></div></div>
+                    <div class="subtext" id="volume-consumed-text">مصرف شده: 0.0000 GB</div>
+                </div>
+
+                <div class="card">
+                    <h3>زمان باقی‌مانده اشتراک</h3>
+                    <div class="value" id="time-remaining">28 روز</div>
+                    <div class="subtext" id="time-detail">28 روز، 22 ساعت، 15 دقیقه، 0 ثانیه</div>
+                </div>
+
+                <div class="card">
+                    <h3>وضعیت</h3>
+                    <div class="value status-active">فعال</div>
+                    <div class="subtext">سرویس در حال کار</div>
+                </div>
+
+                <div class="card">
+                    <h3>سرعت متوسط</h3>
+                    <div class="value">14 Mbps</div>
+                    <div class="subtext">24 ساعت گذشته</div>
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <button class="btn-small btn-primary" onclick="openSupport()">
+                    <i class="fas fa-headset"></i> پشتیبانی
+                </button>
+
+                <button class="btn-small btn-success" onclick="addToApp()">
+                    <i class="fas fa-mobile-alt"></i> اضافه به برنامه
+                </button>
+
+                <button class="btn-small btn-warning" onclick="showFAQ()">
+                    <i class="fas fa-question-circle"></i> سوالات متداول
+                </button>
+
+                <button class="btn-premium" onclick="showTutorial()">
+                    <i class="fas fa-book-open"></i> آموزش استفاده از پنل
+                </button>
+            </div>
+
+            <div class="compact-grid">
+                <div class="card servers-card">
+                    <h3>لیست سرورها</h3>
+
+                    <button class="copy-all-manual-btn" onclick="copyAllManual()">
+                        <i class="fas fa-copy"></i> کپی همه کانفیگ‌ها (به صورت دستی)
+                    </button>
+
+                    <button class="copy-sub-btn" onclick="copySubLink()">
+                        <i class="fas fa-link"></i> کپی لینک سابسکریپشن
+                    </button>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>نام</th><th>کشور</th><th>پینگ</th><th>بار</th><th>وضعیت</th><th>عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>بلغارستان VIP 1</td><td><img src="https://flagcdn.com/bg.svg" class="flag" alt="BG"> بلغارستان</td><td>48 ms</td><td>24%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(0)">کپی کانفیگ</button></td></tr>
+                            <tr><td>آذربایجان VIP</td><td><img src="https://flagcdn.com/az.svg" class="flag" alt="AZ"> آذربایجان</td><td>65 ms</td><td>29%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(1)">کپی کانفیگ</button></td></tr>
+                            <tr><td>آندورا VIP</td><td><img src="https://flagcdn.com/ad.svg" class="flag" alt="AD"> آندورا</td><td>55 ms</td><td>22%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(2)">کپی کانفیگ</button></td></tr>
+                            <tr><td>کانادا VIP</td><td><img src="https://flagcdn.com/ca.svg" class="flag" alt="CA"> کانادا</td><td>110 ms</td><td>35%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(3)">کپی کانفیگ</button></td></tr>
+                            <tr><td>آلمان VIP جدید</td><td><img src="https://flagcdn.com/de.svg" class="flag" alt="DE"> آلمان</td><td>42 ms</td><td>26%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(4)">کپی کانفیگ</button></td></tr>
+                            <tr><td>بلغارستان VIP جدید</td><td><img src="https://flagcdn.com/bg.svg" class="flag" alt="BG"> بلغارستان</td><td>50 ms</td><td>23%</td><td><span class="status-active">فعال</span></td><td><button class="copy-btn" onclick="copyConfig(5)">کپی کانفیگ</button></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>آخرین آپدیت 2026 = پشتیبانی تلگرام: Cluad flare ⚡</p>
+        </footer>
+    </div>
 </body>
-         </html>
+                    </html>
